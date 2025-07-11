@@ -207,116 +207,134 @@ function App() {
 
   // início do jsx
   return (
-    <div>
-      <Toaster position="top-right" reverseOrder={false} />
-      <h1>Ativos financeiros</h1>
-
-      <form onSubmit={adicionarAtivo}>
-        <input
-          type="text"
-          placeholder="Nome (exemplo: PETR4)"
-          // input é controlado, a atualização do estado reflete
-          // imediatamente no input, mantendo a sincronia
-          value={novoAtivo.nome}
-          onChange={(e) =>
-            // spread copia as propriedades existentes, os demais inputs,
-            // para manter seus valores inalterados
-            setNovoAtivo({
-              ...novoAtivo,
-              nome: e.target.value.toUpperCase(),
-            })
-          }
-          className="w-full p-2 pl-8 border-2 border-blue-400 rounded-lg text-sm bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-        />
-
-        <input
-          type="number"
-          placeholder="Valor"
-          // tirar 0 automático
-
-          // input é controlado, a atualização do estado reflete
-          // imediatamente no input, mantendo a sincronia
-          value={novoAtivo.valor === 0 ? "" : novoAtivo.valor}
-          onChange={(e) =>
-            // spread copia as propriedades existentes, os demais inputs,
-            // para manter seus valores inalterados
-            setNovoAtivo({ ...novoAtivo, valor: Number(e.target.value) })
-          }
-          className="w-full p-2 pl-8 border-2 border-blue-400 rounded-lg text-sm bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-        />
-
-        <input
-          type="date"
-          // input é controlado, a atualização do estado reflete
-          // imediatamente no input, mantendo a sincronia
-          value={novoAtivo.data}
-          onChange={(e) =>
-            // spread copia as propriedades existentes, os demais inputs,
-            // para manter seus valores inalterados
-            setNovoAtivo({ ...novoAtivo, data: e.target.value })
-          }
-          className="w-full p-2 pl-8 border-2 border-blue-400 rounded-lg text-sm bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-        />
-
-        <button
-          type="submit"
-          className="bg-red-600 text-white px-2 py-0.5 rounded text-xs hover:bg-red-900 transition-colors mt-1 cursor-pointer"
-        >
-          Adicionar
-        </button>
-      </form>
-
-      {/* // campo de busca */}
-      <div className="relative">
-        <input
-          type="text"
-          placeholder="Pesquisar ativo financeiro"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full p-2 pl-8 border-2 border-blue-400 rounded-lg text-sm bg-white shadow-md focus:outline-none focus:ring-2 focus:ring-blue-600"
-        />
-
-        {/* // ícone de lupa */}
-        <div className="absolute left-2 top-2.5">
-          <svg
-            className="w-4 h-4 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            ></path>
-          </svg>
+    <div className="flex h-screen">
+      <div className="bg-gray-900 text-white w-44 space-y-6 py-7 px-2 fixed h-full left-0 top-0">
+        <div className="flex justify-center items-center h-26">
+          <img src="dolarame.png" alt="Logo Dolarame" className="w-16" />
         </div>
       </div>
 
-      <h2>Lista de ativos</h2>
+      <div className="flex-1 ml-64">
+        <div className="max-w-[1200px] mx-auto p-4">
+          <Toaster position="top-right" reverseOrder={false} />
+          <h1 className="text-3xl font-bold mb-10 text-white text-left">
+            Bem-vindo, Samuel
+          </h1>
 
-      {/* está carregando os ativos? */}
-      {loadingAtivos === true ? (
-        <div>Carregando...</div>
-      ) : filteredAtivo.length === 0 ? (
-        // a lista tem tamanho 0?
-        <div>Nenhum ativo encontrado.</div>
-      ) : (
-        // listar ativos
-        <div>
-          <hr />
-          {filteredAtivo.map((ativo, index) => (
-            <div key={index}>
-              <p>{ativo.nome}</p>
-              <p>{ativo.valor}</p>
-              <p>{ativo.data}</p>
-              <hr />
+          <div className="flex flex-col lg:flex-row gap-8">
+            <div className="w-full lg:w-1/3">
+              <form
+                onSubmit={adicionarAtivo}
+                className="space-y-4 bg-[#4a5d3a] p-6 rounded-lg shadow-lg lg:h-140 sm:h-90"
+              >
+                <h2 className="text-2xl font-semibold text-white lg:mb-12 lg:mt-13 sm:mb-6 sm:mt-3">
+                  Cadastro
+                </h2>
+                <input
+                  type="text"
+                  placeholder="Nome"
+                  value={novoAtivo.nome}
+                  onChange={(e) =>
+                    setNovoAtivo({
+                      ...novoAtivo,
+                      nome: e.target.value.toUpperCase(),
+                    })
+                  }
+                  className="w-full p-2 pl-8 border-2 border-[#6e8f58] rounded-lg text-sm bg-gray-900 text-white placeholder-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-[#6e8f58]"
+                />
+
+                <input
+                  type="number"
+                  placeholder="Valor"
+                  value={novoAtivo.valor === 0 ? "" : novoAtivo.valor}
+                  onChange={(e) =>
+                    setNovoAtivo({
+                      ...novoAtivo,
+                      valor: Number(e.target.value),
+                    })
+                  }
+                  className="w-full p-2 pl-8 border-2 border-[#6e8f58] rounded-lg text-sm bg-gray-900 text-white placeholder-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-[#6e8f58]"
+                />
+
+                <input
+                  type="date"
+                  value={novoAtivo.data}
+                  onChange={(e) =>
+                    setNovoAtivo({ ...novoAtivo, data: e.target.value })
+                  }
+                  className="w-full p-2 pl-8 border-2 border-[#6e8f58] rounded-lg text-sm bg-gray-900 text-white placeholder-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-[#6e8f58]"
+                />
+
+                <button
+                  type="submit"
+                  className="w-full bg-[#6e8f58] text-white px-2 py-2 rounded-lg text-sm hover:bg-[#5a7547] transition-colors mt-2 cursor-pointer"
+                >
+                  Adicionar
+                </button>
+              </form>
             </div>
-          ))}
+            <div className="w-full lg:w-2/3 space-y-4">
+              <div className="relative">
+                <input
+                  type="text"
+                  placeholder="Pesquisar"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full p-2 pl-8 border-2 border-[#6e8f58] rounded-lg text-sm bg-gray-900 text-white placeholder-gray-500 shadow-md focus:outline-none focus:ring-2 focus:ring-[#6e8f58]"
+                />
+                <div className="absolute left-2 top-2.5">
+                  <svg
+                    className="w-4 h-4 text-gray-500"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+
+              {loadingAtivos === true ? (
+                <div className="text-2xl font-medium text-white text-center">
+                  Carregando...
+                </div>
+              ) : filteredAtivo.length === 0 ? (
+                <div className="text-2xl font-medium text-white text-center">
+                  Nenhum ativo encontrado.
+                </div>
+              ) : (
+                <div className="space-y-4 max-h-126 overflow-y-auto custom-scrollbar pr-3">
+                  {filteredAtivo.map((ativo, index) => (
+                    <div
+                      key={index}
+                      className="flex max-w items-center gap-x-4 rounded-xl bg-gray-900 p-6 shadow-lg border-2 border-[#6e8f58] dark:shadow-none"
+                    >
+                      <div>
+                        <p className="text-gray-400 text-left text-xs pb-1">
+                          Último registro
+                        </p>
+                        <div className="text-2xl font-medium text-white text-left">
+                          {ativo.nome}
+                        </div>
+                        <p className="text-gray-400 text-left pt-2 text-lg">
+                          {ativo.valor} <span className="text-xs">BRL</span>
+                        </p>
+                        <p className="text-gray-400 text-left">{ativo.data}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
