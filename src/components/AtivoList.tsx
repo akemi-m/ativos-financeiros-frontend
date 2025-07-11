@@ -27,16 +27,15 @@ export default function FormList({
               className="flex max-w items-center gap-x-4 rounded-xl bg-gray-900 p-6 shadow-lg border-2 border-[#6e8f58] dark:shadow-none"
             >
               <div>
-                <p className="text-gray-400 text-left text-xs pb-1">
-                  Último registro
-                </p>
                 <div className="text-2xl font-medium text-white text-left">
                   {ativo.nome}
                 </div>
                 <p className="text-gray-400 text-left pt-2 text-lg">
-                  {ativo.valor} <span className="text-xs">BRL</span>
+                  {ativo.valor.toFixed(2)} <span className="text-xs">BRL</span>
                 </p>
-                <p className="text-gray-400 text-left">{ativo.data}</p>
+                <p className="text-gray-400 text-left">
+                  Última compra: {ativo.data}
+                </p>
               </div>
             </div>
           ))}
