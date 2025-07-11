@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@layer utilities {
+  .animate-floating {
+    animation: floating 6s linear infinite;
+  }
+
+  @keyframes floating {
+    0% {
+      transform: translateY(0);
+    }
+
+    100% {
+      transform: translateY(-100vh);
+    }
+  }
+}
