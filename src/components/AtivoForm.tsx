@@ -88,7 +88,7 @@ export default function AtivoForm({ getAtivos }: AtivoFormProps) {
 
     const dataConvertida = new Date(novoAtivo.data);
     if (isNaN(dataConvertida.getTime())) {
-      toast.error("data inválida.", {
+      toast.error("Data inválida.", {
         style: {
           background: "#b91010",
           color: "#ffffff",

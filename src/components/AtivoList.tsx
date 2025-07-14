@@ -33,9 +33,7 @@ export default function FormList({
                 <p className="text-gray-400 text-left pt-2 text-lg">
                   {ativo.valor.toFixed(2)} <span className="text-xs">BRL</span>
                 </p>
-                <p className="text-gray-400 text-left">
-                  Última compra: {ativo.data}
-                </p>
+                <p className="text-gray-400 text-left">{ativo.data}</p>
               </div>
             </div>
           ))}
